@@ -2,6 +2,8 @@ GLP1
 
 Complete sales funnel with Authorize.Net payment processing + Vercel deployment.
 
+**Live Site**: https://glp-1-git-main-joshuas-projects-95d2d3ba.vercel.app/
+
 ## Features
 
 - ✅ Responsive landing page (glp-clone.html)
