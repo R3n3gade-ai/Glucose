@@ -1,16 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "glp-clone.html", "use": "@vercel/static" },
-    { "src": "public/**", "use": "@vercel/static" },
-    { "src": "api/*.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/checkout", "dest": "/public/checkout.html" },
-    { "src": "/thank-you", "dest": "/public/thank-you.html" },
-    { "src": "/thank-you-final", "dest": "/public/thank-you-final.html" },
-    { "src": "/upsell-1", "dest": "/public/upsell-1.html" },
-    { "src": "/", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/checkout", "destination": "/public/checkout.html" },
+    { "source": "/thank-you", "destination": "/public/thank-you.html" },
+    { "source": "/thank-you-final", "destination": "/public/thank-you-final.html" },
+    { "source": "/upsell-1", "destination": "/public/upsell-1.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
