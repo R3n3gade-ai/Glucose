@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank You - Order Confirmed</title>
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:0;padding:0;background:#0f172a;color:#e5e7eb;text-align:center}
+    .wrap{max-width:800px;margin:60px auto;padding:24px}
+    .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:40px}
+    h1{color:#22c55e;font-size:36px;margin:0 0 16px}
+    .icon{font-size:64px;margin-bottom:16px}
+    .tid{background:#0b1220;border:1px solid #334155;border-radius:8px;padding:12px;margin:24px 0;font-family:monospace;color:#9ca3af}
+    .cta{display:inline-block;background:#22c55e;color:#052e1b;font-weight:700;border-radius:10px;padding:14px 24px;text-decoration:none;margin-top:24px}
+    .cta:hover{background:#16a34a}
+    ul{text-align:left;max-width:500px;margin:24px auto;line-height:1.8}
+    .upsell{background:linear-gradient(135deg,#1e3a8a,#1e40af);border:2px solid #3b82f6;border-radius:12px;padding:24px;margin-top:32px}
+    .upsell h2{margin:0 0 12px;color:#93c5fd}
+    .upsell-price{font-size:32px;color:#22c55e;font-weight:700;margin:16px 0}
+    .upsell-btns{display:flex;gap:12px;justify-content:center;margin-top:16px}
+    .btn-yes{background:#22c55e;color:#052e1b}
+    .btn-no{background:transparent;color:#9ca3af;border:1px solid #334155}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="icon">🎉</div>
+      <h1>Thank You for Your Order!</h1>
+      <p style="font-size:18px;color:#9ca3af">Your GlucoBoost order has been confirmed</p>
+      
+      <div class="tid" id="transaction-info">
+        <div>Transaction ID: <span id="tid">Loading...</span></div>
+        <div>Package: <span id="pkg">Loading...</span></div>
+      </div>
+
+      <ul>
+        <li><strong>✓ Order Confirmed</strong> - You'll receive a confirmation email shortly</li>
+        <li><strong>✓ Fast Shipping</strong> - Your order ships within 24 hours</li>
+        <li><strong>✓ 60-Day Guarantee</strong> - Try it risk-free</li>
+        <li><strong>✓ Tracking Info</strong> - Check your email for shipping updates</li>
+      </ul>
+
+      <div id="upsell" class="upsell">
+        <h2>🎁 Special One-Time Offer</h2>
+        <p style="font-size:16px;margin:8px 0">WAIT! Before you go... add <strong>GlucoBoost Advanced Formula</strong> to maximize your results!</p>
+        <div class="upsell-price">Only $49 <span style="font-size:18px;text-decoration:line-through;color:#9ca3af">$99</span></div>
+        <p style="font-size:14px;color:#cbd5e1">✓ Enhanced metabolism support<br>✓ 2x the active ingredients<br>✓ Never offered at this price again</p>
+        <div class="upsell-btns">
+          <a href="/upsell-1" class="cta btn-yes">YES! Add to My Order</a>
+          <a href="javascript:void(0)" onclick="declineUpsell()" class="cta btn-no">No Thanks</a>
+        </div>
+      </div>
+
+      <div id="final-message" style="display:none">
+        <a href="/" class="cta">Return to Homepage</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const tid = params.get('tid') || 'N/A';
+    const pkg = params.get('pkg') || '1';
+    const pkgNames = { '1': '1 Bottle', '3': '3 Bottles', '6': '6 Bottles' };
+    
+    document.getElementById('tid').textContent = tid;
+    document.getElementById('pkg').textContent = pkgNames[pkg] || pkg + ' Bottles';
+
+    function declineUpsell() {
+      document.getElementById('upsell').style.display = 'none';
+      document.getElementById('final-message').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

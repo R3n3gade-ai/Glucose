@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Checkout - GlucoBoost</title>
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:0;padding:0;background:#0f172a;color:#e5e7eb}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    .header{text-align:center;padding:20px 0;border-bottom:1px solid #1f2937}
+    .header h1{margin:0;font-size:28px;color:#22c55e}
+    .main{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;margin-top:24px}
+    .card{background:#111827;border:1px solid #1f2937;border-radius:12px;padding:20px}
+    .card h2{margin:0 0 16px;font-size:20px}
+    label{display:block;margin:.8rem 0 .3rem;color:#cbd5e1;font-size:14px}
+    input,select{width:100%;padding:.7rem;border-radius:8px;border:1px solid #334155;background:#0b1220;color:#e5e7eb;font-size:14px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .packages{display:grid;gap:12px}
+    .pkg{border:2px solid #334155;border-radius:10px;padding:16px;cursor:pointer;transition:all .2s}
+    .pkg:hover{border-color:#22c55e}
+    .pkg.selected{border-color:#22c55e;background:#0d2818}
+    .pkg input[type=radio]{display:none}
+    .pkg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .pkg-title{font-size:18px;font-weight:700}
+    .pkg-save{background:#22c55e;color:#052e1b;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:700}
+    .pkg-price{font-size:24px;font-weight:700;color:#22c55e}
+    .pkg-unit{font-size:14px;color:#9ca3af}
+    .pkg-desc{font-size:13px;color:#9ca3af;margin-top:6px}
+    .bump{border:2px dashed #22c55e;border-radius:10px;padding:16px;margin-top:16px;cursor:pointer}
+    .bump input[type=checkbox]{margin-right:8px}
+    .bump-title{font-weight:700;color:#22c55e}
+    .summary{position:sticky;top:24px}
+    .sum-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1f2937}
+    .sum-row.total{font-size:20px;font-weight:700;color:#22c55e;border-top:2px solid #334155;margin-top:8px;padding-top:12px}
+    .cta{display:block;width:100%;background:#22c55e;color:#052e1b;font-weight:700;border-radius:10px;padding:14px;text-align:center;border:none;font-size:16px;cursor:pointer;margin-top:16px}
+    .cta:hover{background:#16a34a}
+    .cta:disabled{background:#334155;cursor:not-allowed}
+    .trust{display:flex;gap:12px;margin-top:12px;font-size:12px;color:#9ca3af;flex-wrap:wrap}
+    .trust span{display:flex;align-items:center;gap:4px}
+    .msg{margin-top:12px;padding:12px;border-radius:8px;font-size:14px}
+    .msg.error{background:#7f1d1d;color:#fca5a5;border:1px solid #991b1b}
+    .msg.success{background:#14532d;color:#86efac;border:1px solid #166534}
+    .msg.processing{background:#1e3a8a;color:#93c5fd;border:1px solid#1e40af}
+    @media(max-width:900px){.main{grid-template-columns:1fr}}
+  </style>
+  <script src="/api/config.js"></script>
+  <script src="https://js.authorize.net/v3/AcceptUI.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>🔒 Secure Checkout</h1>
+      <p>Complete your GlucoBoost order securely</p>
+    </div>
+
+    <div class="main">
+      <div>
+        <div class="card">
+          <h2>Select Your Package</h2>
+          <div class="packages" id="packages">
+            <label class="pkg selected" data-price="199.00" data-qty="6">
+              <input type="radio" name="package" value="6" checked>
+              <div class="pkg-header">
+                <span class="pkg-title">6 Bottles</span>
+                <span class="pkg-save">SAVE 40%</span>
+              </div>
+              <div class="pkg-price">$199.00 <span class="pkg-unit">($33.17/bottle)</span></div>
+              <div class="pkg-desc">Best Value • Free Shipping • 180-Day Supply</div>
+            </label>
+
+            <label class="pkg" data-price="129.00" data-qty="3">
+              <input type="radio" name="package" value="3">
+              <div class="pkg-header">
+                <span class="pkg-title">3 Bottles</span>
+                <span class="pkg-save">SAVE 30%</span>
+              </div>
+              <div class="pkg-price">$129.00 <span class="pkg-unit">($43.00/bottle)</span></div>
+              <div class="pkg-desc">Great Deal • Free Shipping • 90-Day Supply</div>
+            </label>
+
+            <label class="pkg" data-price="64.99" data-qty="1">
+              <input type="radio" name="package" value="1">
+              <div class="pkg-header">
+                <span class="pkg-title">1 Bottle</span>
+              </div>
+              <div class="pkg-price">$64.99 <span class="pkg-unit">(30-Day Supply)</span></div>
+              <div class="pkg-desc">Try It Out • $4.95 Shipping</div>
+            </label>
+          </div>
+
+          <div class="bump" id="bump">
+            <label style="cursor:pointer;display:flex;align-items:start">
+              <input type="checkbox" id="bumpCheck" style="margin-top:3px">
+              <div>
+                <div class="bump-title">🎁 YES! Add GlucoBoost Premium Guide ($39 Value) for just $19</div>
+                <div style="font-size:13px;color:#9ca3af;margin-top:4px">
+                  Unlock advanced tips, meal plans, and recipes to maximize your results
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:24px">
+          <h2>Billing Information</h2>
+          <form id="checkout-form">
+            <div class="row">
+              <div>
+                <label>First Name *</label>
+                <input id="firstName" required>
+              </div>
+              <div>
+                <label>Last Name *</label>
+                <input id="lastName" required>
+              </div>
+            </div>
+            <label>Email *</label>
+            <input id="email" type="email" required>
+            <label>Phone</label>
+            <input id="phone" type="tel">
+
+            <button
+              class="cta"
+              id="accept-ui-btn"
+              type="button"
+              data-billingAddressOptions='{"show":true,"required":true}'
+              data-apiLoginID=""
+              data-clientKey=""
+              data-acceptUIFormBtnText="Complete Order"
+              data-acceptUIFormHeaderTxt="Secure Payment"
+              data-paymentOptions='{"showCreditCard":true,"showBankAccount":false}'
+            >Complete Secure Order</button>
+
+            <div class="trust">
+              <span>🔒 256-Bit SSL Encryption</span>
+              <span>✓ Money-Back Guarantee</span>
+              <span>✓ Secure Checkout</span>
+            </div>
+
+            <div class="msg" id="status" style="display:none"></div>
+          </form>
+        </div>
+      </div>
+
+      <div>
+        <div class="card summary">
+          <h2>Order Summary</h2>
+          <div class="sum-row">
+            <span id="sum-pkg-name">6 Bottles</span>
+            <span id="sum-pkg-price">$199.00</span>
+          </div>
+          <div class="sum-row" id="sum-bump-row" style="display:none">
+            <span>Premium Guide</span>
+            <span>$19.00</span>
+          </div>
+          <div class="sum-row" id="sum-ship-row">
+            <span>Shipping</span>
+            <span id="sum-ship">FREE</span>
+          </div>
+          <div class="sum-row total">
+            <span>Total</span>
+            <span id="sum-total">$199.00</span>
+          </div>
+          <div style="margin-top:16px;font-size:13px;color:#9ca3af">
+            <p>✓ 60-Day Money-Back Guarantee</p>
+            <p>✓ Ships within 24 hours</p>
+            <p>✓ Discreet packaging</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedPkg = { price: 199.00, qty: 6, name: '6 Bottles' };
+    let bumpPrice = 19.00;
+    let bumpAdded = false;
+    const shippingFee = 4.95;
+
+    // Package selection
+    document.getElementById('packages').addEventListener('click', (e) => {
+      const pkg = e.target.closest('.pkg');
+      if (!pkg) return;
+      document.querySelectorAll('.pkg').forEach(p => p.classList.remove('selected'));
+      pkg.classList.add('selected');
+      pkg.querySelector('input[type=radio]').checked = true;
+      selectedPkg = {
+        price: parseFloat(pkg.dataset.price),
+        qty: parseInt(pkg.dataset.qty),
+        name: pkg.querySelector('.pkg-title').textContent
+      };
+      updateSummary();
+    });
+
+    // Order bump
+    document.getElementById('bumpCheck').addEventListener('change', (e) => {
+      bumpAdded = e.target.checked;
+      updateSummary();
+    });
+
+    function updateSummary() {
+      document.getElementById('sum-pkg-name').textContent = selectedPkg.name;
+      document.getElementById('sum-pkg-price').textContent = '$' + selectedPkg.price.toFixed(2);
+      
+      const bumpRow = document.getElementById('sum-bump-row');
+      if (bumpAdded) {
+        bumpRow.style.display = 'flex';
+      } else {
+        bumpRow.style.display = 'none';
+      }
+
+      const shipping = selectedPkg.qty === 1 ? shippingFee : 0;
+      document.getElementById('sum-ship').textContent = shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2);
+      
+      const total = selectedPkg.price + (bumpAdded ? bumpPrice : 0) + shipping;
+      document.getElementById('sum-total').textContent = '$' + total.toFixed(2);
+    }
+
+    // Payment processing
+    document.addEventListener('paymentFormUpdate', async function(e) {
+      const statusEl = document.getElementById('status');
+      statusEl.style.display = 'block';
+      
+      if (!e || !e.detail || !e.detail.response) {
+        statusEl.className = 'msg error';
+        statusEl.textContent = '❌ Payment modal did not return data.';
+        return;
+      }
+
+      const { opaqueData } = e.detail.response;
+      if (!opaqueData || !opaqueData.dataValue) {
+        statusEl.className = 'msg error';
+        statusEl.textContent = '❌ Missing payment token. Please try again.';
+        return;
+      }
+
+      const shipping = selectedPkg.qty === 1 ? shippingFee : 0;
+      const amount = selectedPkg.price + (bumpAdded ? bumpPrice : 0) + shipping;
+
+      const payload = {
+        amount: amount,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        packageQty: selectedPkg.qty,
+        orderBump: bumpAdded,
+        opaqueData
+      };
+
+      statusEl.className = 'msg processing';
+      statusEl.textContent = '⏳ Processing your payment securely...';
+
+      try {
+        const res = await fetch('/api/charge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          statusEl.className = 'msg success';
+          statusEl.textContent = '✅ Payment approved! Redirecting...';
+          
+          // Save customer info for upsells
+          sessionStorage.setItem('customer', JSON.stringify({
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            email: payload.email,
+            phone: payload.phone
+          }));
+          
+          setTimeout(() => {
+            window.location.href = '/thank-you?tid=' + (data.transactionId || '') + '&pkg=' + selectedPkg.qty;
+          }, 1500);
+        } else {
+          statusEl.className = 'msg error';
+          statusEl.textContent = '❌ Payment failed: ' + (data.error || res.statusText);
+        }
+      } catch (err) {
+        statusEl.className = 'msg error';
+        statusEl.textContent = '❌ Network error: ' + err.message;
+      }
+    });
+
+    // Load Accept.js credentials
+    (function() {
+      const btn = document.getElementById('accept-ui-btn');
+      const login = (typeof window.AUTHNET_API_LOGIN_ID !== 'undefined') ? window.AUTHNET_API_LOGIN_ID : '';
+      const client = (typeof window.AUTHNET_PUBLIC_CLIENT_KEY !== 'undefined') ? window.AUTHNET_PUBLIC_CLIENT_KEY : '';
+      if (login) btn.setAttribute('data-apiLoginID', login);
+      if (client) btn.setAttribute('data-clientKey', client);
+    })();
+
+    updateSummary();
+  </script>
+</body>
+</html>

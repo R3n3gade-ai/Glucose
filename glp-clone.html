@@ -1093,10 +1093,19 @@ $(document).ready(function(e) {
 
 <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;a5655e29284943808d70dada2aa3c4c0&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
 
-<script>(function(){var base='https://secureplus.buyglucoboostglpdaily.com/v1/payment.php';
-var sp=new URLSearchParams(window.location.search);
-var qp=new URLSearchParams();
-['AFFID','prospectId'].forEach(function(k){var v=sp.get(k);if(v){qp.set(k,v);}});
-var url=base+(qp.toString()?('?'+qp.toString()):'');var anchors=Array.from(document.querySelectorAll('a'));anchors.forEach(function(a){var txt=(a.textContent||'').trim().toLowerCase();if(txt.includes('order now')||((a.className||'').toLowerCase().includes('order'))){a.setAttribute('href',url);}});var btns=Array.from(document.querySelectorAll('button,input[type=button],input[type=submit]'));btns.forEach(function(b){var txt=(b.textContent||b.value||'').trim().toLowerCase();if(txt.includes('order now')||((b.className||'').toLowerCase().includes('order'))){b.addEventListener('click',function(e){e.preventDefault();window.location.href=url;});}});var forms=Array.from(document.querySelectorAll('form'));forms.forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();window.location.href=url;});});})();</script>
+<script>(function(){
+    // Rewrite "Order Now" links/buttons to local checkout page on Vercel
+    var base='/checkout';
+    var sp=new URLSearchParams(window.location.search);
+    var qp=new URLSearchParams();
+    ['AFFID','prospectId','c1','c2','c3'].forEach(function(k){var v=sp.get(k);if(v){qp.set(k,v);}});
+    var url=base+(qp.toString()?('?'+qp.toString()):'');
+    var anchors=Array.from(document.querySelectorAll('a'));
+    anchors.forEach(function(a){var txt=(a.textContent||'').trim().toLowerCase();if(txt.includes('order now')||((a.className||'').toLowerCase().includes('order'))){a.setAttribute('href',url);}});
+    var btns=Array.from(document.querySelectorAll('button,input[type=button],input[type=submit]'));
+    btns.forEach(function(b){var txt=(b.textContent||b.value||'').trim().toLowerCase();if(txt.includes('order now')||((b.className||'').toLowerCase().includes('order'))){b.addEventListener('click',function(e){e.preventDefault();window.location.href=url;});}});
+    var forms=Array.from(document.querySelectorAll('form'));
+    forms.forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();window.location.href=url;});});
+})();</script>
 </body></html>
 
