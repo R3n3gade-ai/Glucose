@@ -273,7 +273,7 @@
           }));
           
           setTimeout(() => {
-            window.location.href = '/thank-you?tid=' + (data.transactionId || '') + '&pkg=' + selectedPkg.qty;
+            window.location.href = 'thank-you.html?tid=' + (data.transactionId || '') + '&pkg=' + selectedPkg.qty;
           }, 1500);
         } else {
           statusEl.className = 'msg error';

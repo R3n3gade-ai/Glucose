@@ -178,7 +178,7 @@
                 <div class="form_mid">
                     <div class="form_text1">As Low as <span>$64.99</span> per month</div>
                     
-                    <form name="opt_in_form" id="opt_in_form" method="POST" action="/checkout" class="form_box">
+                    <form name="opt_in_form" id="opt_in_form" method="GET" action="checkout.html" class="form_box">
                         <input type="hidden" name="device" value="desktop">
                         <input type="hidden" name="toggleC" value="1">
                         <input type="hidden" name="pgtag" value="dindex">
@@ -1094,8 +1094,8 @@ $(document).ready(function(e) {
 <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;a5655e29284943808d70dada2aa3c4c0&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
 
 <script>(function(){
-    // Rewrite "Order Now" links/buttons to local checkout page on Vercel
-    var base='/checkout';
+    // Rewrite "Order Now" links/buttons to checkout.html
+    var base='checkout.html';
     var sp=new URLSearchParams(window.location.search);
     var qp=new URLSearchParams();
     ['AFFID','prospectId','c1','c2','c3'].forEach(function(k){var v=sp.get(k);if(v){qp.set(k,v);}});

@@ -69,7 +69,7 @@
         data-paymentOptions='{"showCreditCard":true,"showBankAccount":false}'
       >YES! Add Advanced Formula ($49)</button>
 
-      <a href="/thank-you-final" class="cta cta-decline">No Thanks, I'll Pass</a>
+      <a href="thank-you-final.html" class="cta cta-decline">No Thanks, I'll Pass</a>
 
       <div class="msg" id="status"></div>
     </div>
@@ -137,7 +137,7 @@
           statusEl.style.color = '#86efac';
           statusEl.textContent = '✅ Upsell added! Redirecting...';
           setTimeout(() => {
-            window.location.href = '/thank-you-final?upsell=1';
+            window.location.href = 'thank-you-final.html?upsell=1';
           }, 1500);
         } else {
           statusEl.className = 'msg error';
