@@ -1,32 +1,138 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Special Upsell - GlucoBoost Advanced</title>
   <style>
-    *{box-sizing:border-box}
-    body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:0;padding:0;background:#0f172a;color:#e5e7eb}
-    .wrap{max-width:900px;margin:40px auto;padding:24px}
-    .header{text-align:center;padding:20px 0}
-    .header h1{color:#22c55e;font-size:32px;margin:0 0 8px}
-    .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:32px;text-align:center}
-    .badge{background:#22c55e;color:#052e1b;padding:8px 16px;border-radius:20px;font-weight:700;display:inline-block;margin-bottom:16px}
-    .price{font-size:48px;color:#22c55e;font-weight:700;margin:24px 0}
-    .strike{text-decoration:line-through;color:#9ca3af;font-size:28px}
-    .benefits{text-align:left;max-width:600px;margin:24px auto;line-height:2}
-    .benefits li{margin:8px 0}
-    .cta{display:inline-block;background:#22c55e;color:#052e1b;font-weight:700;border-radius:10px;padding:16px 32px;text-decoration:none;font-size:18px;margin:16px 8px}
-    .cta:hover{background:#16a34a}
-    .cta-decline{background:transparent;border:1px solid #334155;color:#9ca3af}
-    .timer{background:#7f1d1d;border:1px solid #991b1b;border-radius:8px;padding:16px;margin:24px auto;max-width:400px;font-size:18px}
-    .msg{margin-top:16px;padding:12px;border-radius:8px;font-size:14px;display:none}
-    .msg.error{background:#7f1d1d;color:#fca5a5;border:1px solid #991b1b}
-    .msg.processing{background:#1e3a8a;color:#93c5fd;border:1px solid #1e40af}
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: system-ui, Segoe UI, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: #e5e7eb
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 0
+    }
+
+    .header h1 {
+      color: #22c55e;
+      font-size: 32px;
+      margin: 0 0 8px
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center
+    }
+
+    .badge {
+      background: #22c55e;
+      color: #052e1b;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 16px
+    }
+
+    .price {
+      font-size: 48px;
+      color: #22c55e;
+      font-weight: 700;
+      margin: 24px 0
+    }
+
+    .strike {
+      text-decoration: line-through;
+      color: #9ca3af;
+      font-size: 28px
+    }
+
+    .benefits {
+      text-align: left;
+      max-width: 600px;
+      margin: 24px auto;
+      line-height: 2
+    }
+
+    .benefits li {
+      margin: 8px 0
+    }
+
+    .cta {
+      display: inline-block;
+      background: #22c55e;
+      color: #052e1b;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 16px 32px;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 16px 8px
+    }
+
+    .cta:hover {
+      background: #16a34a
+    }
+
+    .cta-decline {
+      background: transparent;
+      border: 1px solid #334155;
+      color: #9ca3af
+    }
+
+    .timer {
+      background: #7f1d1d;
+      border: 1px solid #991b1b;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 24px auto;
+      max-width: 400px;
+      font-size: 18px
+    }
+
+    .msg {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none
+    }
+
+    .msg.error {
+      background: #7f1d1d;
+      color: #fca5a5;
+      border: 1px solid #991b1b
+    }
+
+    .msg.processing {
+      background: #1e3a8a;
+      color: #93c5fd;
+      border: 1px solid #1e40af
+    }
   </style>
   <script src="/api/config.js"></script>
   <script src="https://js.authorize.net/v3/AcceptUI.js"></script>
 </head>
+
 <body>
   <div class="wrap">
     <div class="header">
@@ -40,7 +146,7 @@
       <div class="badge">50% OFF - TODAY ONLY</div>
       <h2 style="font-size:28px;margin:16px 0">GlucoBoost Advanced Formula</h2>
       <p style="color:#9ca3af;font-size:16px">Double-strength formula for maximum results</p>
-      
+
       <div class="price">
         $49 <span class="strike">$99</span>
       </div>
@@ -57,17 +163,10 @@
         ⚠️ This offer is only available RIGHT NOW and will not be shown again
       </p>
 
-      <button
-        class="cta"
-        id="accept-ui-btn"
-        type="button"
-        data-billingAddressOptions='{"show":false,"required":false}'
-        data-apiLoginID=""
-        data-clientKey=""
-        data-acceptUIFormBtnText="Add to Order - $49"
+      <button class="cta" id="accept-ui-btn" type="button" data-billingAddressOptions='{"show":false,"required":false}'
+        data-apiLoginID="" data-clientKey="" data-acceptUIFormBtnText="Add to Order - $49"
         data-acceptUIFormHeaderTxt="Secure Payment"
-        data-paymentOptions='{"showCreditCard":true,"showBankAccount":false}'
-      >YES! Add Advanced Formula ($49)</button>
+        data-paymentOptions='{"showCreditCard":true,"showBankAccount":false}'>YES! Add Advanced Formula ($49)</button>
 
       <a href="thank-you-final.html" class="cta cta-decline">No Thanks, I'll Pass</a>
 
@@ -78,11 +177,11 @@
   <script>
     let timeLeft = 600; // 10 minutes
     const countdownEl = document.getElementById('countdown');
-    
+
     setInterval(() => {
       timeLeft--;
       if (timeLeft <= 0) {
-        window.location.href = '/thank-you-final';
+        window.location.href = 'thank-you-final.html';
         return;
       }
       const mins = Math.floor(timeLeft / 60);
@@ -93,10 +192,10 @@
     // Load saved customer info from sessionStorage (if available from checkout)
     const savedCustomer = JSON.parse(sessionStorage.getItem('customer') || '{}');
 
-    document.addEventListener('paymentFormUpdate', async function(e) {
+    document.addEventListener('paymentFormUpdate', async function (e) {
       const statusEl = document.getElementById('status');
       statusEl.style.display = 'block';
-      
+
       if (!e || !e.detail || !e.detail.response) {
         statusEl.className = 'msg error';
         statusEl.textContent = '❌ Payment modal error. Please try again.';
@@ -130,7 +229,7 @@
           body: JSON.stringify(payload)
         });
         const data = await res.json();
-        
+
         if (res.ok) {
           statusEl.className = 'msg';
           statusEl.style.background = '#14532d';
@@ -150,7 +249,7 @@
     });
 
     // Load Accept.js credentials
-    (function() {
+    (function () {
       const btn = document.getElementById('accept-ui-btn');
       const login = (typeof window.AUTHNET_API_LOGIN_ID !== 'undefined') ? window.AUTHNET_API_LOGIN_ID : '';
       const client = (typeof window.AUTHNET_PUBLIC_CLIENT_KEY !== 'undefined') ? window.AUTHNET_PUBLIC_CLIENT_KEY : '';
@@ -159,4 +258,5 @@
     })();
   </script>
 </body>
+
 </html>
