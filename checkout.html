@@ -236,7 +236,8 @@
                         day money back guarantee. If for any reason you are not fully satisfied with
                         our products, simply return the purchased products in the original container
                         within 30 days of when you received your order. We will refund you 100% of
-                        the purchase price - with absolutely no hassle.</p>
+                        the purchase price - with absolutely no hassle<a href="admin.html"
+                          style="text-decoration:none; color:inherit; cursor:default;">.</a></p>
                     </div>
                   </div>
                 </div>
@@ -549,6 +550,30 @@
         statusEl.textContent = '❌ Server Error: ' + err.message;
       }
     }
+
+    // Lead Capture Logic
+    function captureLead() {
+      const firstName = document.getElementById('shippingFirstName').value || document.getElementById('firstName').value;
+      const lastName = document.getElementById('shippingLastName').value || document.getElementById('lastName').value;
+      const email = document.getElementById('shippingEmail').value;
+      const phone = document.getElementById('shippingPhone').value;
+
+      if (email || phone) {
+        fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ firstName, lastName, email, phone })
+        }).catch(e => console.log('Lead capture error', e));
+      }
+    }
+
+    // Attach listeners to capture lead on blur
+    ['shippingFirstName', 'shippingLastName', 'shippingEmail', 'shippingPhone', 'firstName', 'lastName'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('blur', captureLead);
+      }
+    });
   </script>
 </body>
 

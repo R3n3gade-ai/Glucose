@@ -11,12 +11,66 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
+const fs = require('fs');
+const DATA_DIR = path.join(__dirname, 'data');
+
+// Ensure data directory exists
+if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR);
+}
+
+const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
+const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+
+// Helper to append data to JSON file
+function appendToDataFile(filePath, newData) {
+    let data = [];
+    try {
+        if (fs.existsSync(filePath)) {
+            const fileContent = fs.readFileSync(filePath, 'utf8');
+            data = JSON.parse(fileContent);
+        }
+    } catch (e) {
+        console.error('Error reading data file:', e);
+    }
+
+    // Add timestamp
+    newData.timestamp = new Date().toISOString();
+    data.push(newData);
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
+
 // Configuration endpoint
 app.get('/api/config.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
     const apiLogin = process.env.AUTHNET_API_LOGIN_ID || '';
     const publicKey = process.env.AUTHNET_PUBLIC_CLIENT_KEY || '';
     res.status(200).send(`window.AUTHNET_API_LOGIN_ID=${JSON.stringify(apiLogin)};window.AUTHNET_PUBLIC_CLIENT_KEY=${JSON.stringify(publicKey)};`);
+});
+
+// Admin Data endpoint
+app.get('/api/admin-data', (req, res) => {
+    let leads = [];
+    let orders = [];
+    try {
+        if (fs.existsSync(LEADS_FILE)) leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
+        if (fs.existsSync(ORDERS_FILE)) orders = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+    } catch (e) {
+        console.error('Error reading admin data:', e);
+    }
+    res.json({ leads, orders });
+});
+
+// Capture Lead endpoint
+app.post('/api/lead', (req, res) => {
+    const { firstName, lastName, email, phone } = req.body || {};
+    if (!email && !phone) {
+        return res.status(400).json({ error: 'Email or phone required' });
+    }
+
+    appendToDataFile(LEADS_FILE, { firstName, lastName, email, phone, type: 'lead' });
+    res.status(200).json({ status: 'saved' });
 });
 
 // Charge endpoint
@@ -89,6 +143,23 @@ app.post('/api/charge', async (req, res) => {
             const err = txn?.errors?.[0];
             return res.status(402).json({ error: `${err?.errorCode || 'DECLINED'}: ${err?.errorText || 'Transaction declined'}` });
         }
+
+        // Save Order
+        const orderData = {
+            txnId: txn.transId,
+            authCode: txn.authCode,
+            amount,
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+            city,
+            state,
+            zip,
+            status: 'approved'
+        };
+        appendToDataFile(ORDERS_FILE, orderData);
 
         res.status(200).json({ status: 'approved', authCode: txn.authCode, transactionId: txn.transId });
     } catch (e) {

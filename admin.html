@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            opacity: 0.6;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .tab.active {
+            opacity: 1;
+            border-bottom: 3px solid #007bff;
+            color: #007bff;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .empty {
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('leads')">Leads (Abandoned)</div>
+        <div class="tab" onclick="switchTab('buyers')">Buyers (Orders)</div>
+    </div>
+
+    <div id="leads" class="content active">
+        <h2>Leads</h2>
+        <div id="leads-list">Loading...</div>
+    </div>
+
+    <div id="buyers" class="content">
+        <h2>Buyers</h2>
+        <div id="buyers-list">Loading...</div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+
+            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        async function loadData() {
+            try {
+                const res = await fetch('/api/admin-data');
+                const data = await res.json();
+
+                renderTable('leads-list', data.leads || [], ['timestamp', 'firstName', 'lastName', 'email', 'phone']);
+                renderTable('buyers-list', data.orders || [], ['timestamp', 'authCode', 'amount', 'firstName', 'lastName', 'email']);
+            } catch (e) {
+                console.error(e);
+                document.getElementById('leads-list').innerHTML = '<p class="empty">Error loading data.</p>';
+            }
+        }
+
+        function renderTable(containerId, items, columns) {
+            const container = document.getElementById(containerId);
+            if (!items.length) {
+                container.innerHTML = '<p class="empty">No records found.</p>';
+                return;
+            }
+
+            // sort by timestamp desc
+            items.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            let html = '<table><thead><tr>';
+            columns.forEach(col => html += `<th>${col.toUpperCase()}</th>`);
+            html += '</tr></thead><tbody>';
+
+            items.forEach(item => {
+                html += '<tr>';
+                columns.forEach(col => {
+                    let val = item[col] || '-';
+                    if (col === 'timestamp') val = new Date(val).toLocaleString();
+                    if (col === 'amount') val = '$' + val;
+                    html += `<td>${val}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        loadData();
+    </script>
+</body>
+
+</html>
