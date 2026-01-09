@@ -7,9 +7,19 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Debug: Check if Environment Variables are loaded
+console.log('------------------------------------------------');
+console.log('Server Starting...');
+console.log('Environment Variable Check:');
+console.log('AUTHNET_API_LOGIN_ID exists:', !!process.env.AUTHNET_API_LOGIN_ID);
+console.log('AUTHNET_PUBLIC_CLIENT_KEY exists:', !!process.env.AUTHNET_PUBLIC_CLIENT_KEY);
+// masked log for verification (show first 4 chars only if exists)
+if (process.env.AUTHNET_API_LOGIN_ID) console.log('AUTHNET_API_LOGIN_ID (starts with):', process.env.AUTHNET_API_LOGIN_ID.substring(0, 4) + '...');
+if (process.env.AUTHNET_PUBLIC_CLIENT_KEY) console.log('AUTHNET_PUBLIC_CLIENT_KEY (starts with):', process.env.AUTHNET_PUBLIC_CLIENT_KEY.substring(0, 4) + '...');
+console.log('------------------------------------------------');
+
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname));
 
 const fs = require('fs');
 const DATA_DIR = path.join(__dirname, 'data');
@@ -167,6 +177,9 @@ app.post('/api/charge', async (req, res) => {
         res.status(500).json({ error: e.message || 'Server error' });
     }
 });
+
+// Serve static files AFTER all API routes
+app.use(express.static(__dirname));
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
