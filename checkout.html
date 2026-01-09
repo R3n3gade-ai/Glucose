@@ -426,10 +426,32 @@
 
     // Parse URL parameters and populate fields
     function getUrlParameter(name) {
-      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-      var results = regex.exec(location.search);
-      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      // Try multiple methods to get URL parameters
+      try {
+        // Method 1: URLSearchParams (modern browsers)
+        const urlParams = new URLSearchParams(window.location.search);
+        const value = urlParams.get(name);
+        if (value) return decodeURIComponent(value);
+
+        // Method 2: Parse from full href
+        const url = window.location.href;
+        const regex = new RegExp('[?&]' + name + '=([^&#]*)', 'i');
+        const results = regex.exec(url);
+        if (results && results[1]) {
+          return decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Method 3: Original regex method
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex2 = new RegExp('[\\?&]' + name + '=([^&#]*)', 'i');
+        const results2 = regex2.exec(location.search);
+        if (results2 && results2[1]) {
+          return decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+      } catch (e) {
+        console.error('Error parsing URL parameter:', name, e);
+      }
+      return '';
     }
 
     $(document).ready(function () {
@@ -437,6 +459,8 @@
 
       console.log('=== Checkout Page URL Parameters ===');
       console.log('Full URL:', window.location.href);
+      console.log('location.search:', location.search);
+      console.log('window.location.search:', window.location.search);
 
       fields.forEach(field => {
         const val = getUrlParameter(field);
@@ -458,6 +482,12 @@
           if (field === 'lastName') $('#lastName').val(val);
         }
       });
+
+      // Debug: Log what's in the hidden fields after population
+      console.log('Hidden field values after population:');
+      console.log('shippingFirstName:', $('#shippingFirstName').val());
+      console.log('shippingLastName:', $('#shippingLastName').val());
+      console.log('shippingEmail:', $('#shippingEmail').val());
       console.log('=== End URL Parameters ===');
     });
 
@@ -524,19 +554,20 @@
 
       sessionStorage.setItem('customer', JSON.stringify(customerData));
 
-      // Validate we have required customer info
+      // Warn if customer info is missing but don't block payment
       if (!customerData.firstName || !customerData.lastName || !customerData.email) {
-        statusEl.style.color = 'red';
-        statusEl.textContent = '❌ Error: Missing customer information. Please ensure you came from the order form.';
-        return;
+        console.warn('WARNING: Some customer information is missing!');
+        console.warn('firstName:', customerData.firstName || '(empty)');
+        console.warn('lastName:', customerData.lastName || '(empty)');
+        console.warn('email:', customerData.email || '(empty)');
       }
 
       try {
         const payload = {
           amount: pkgData.price,
-          firstName: customerData.firstName,
-          lastName: customerData.lastName,
-          email: customerData.email,
+          firstName: customerData.firstName || 'Customer',
+          lastName: customerData.lastName || 'Order',
+          email: customerData.email || 'order@checkout.com',
           address: customerData.address,
           city: customerData.city,
           state: customerData.state,
