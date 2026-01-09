@@ -142,7 +142,8 @@
             <div class="bnr_content">
                 <img src="images/logo.png" class="logo" alt="" width="368" height="60">
                 <div class="bnr_review_text"><img src="images/bnr-rev-pics.png" alt="" width="84" height="28">Join
-                    <span>1M+</span> weight loss patients</div>
+                    <span>1M+</span> weight loss patients
+                </div>
                 <h1 class="bnr_heading">The "No-Needle" <br>Natural GLP-1 Booster <br>For Weight Loss </h1>
 
                 <div class="bnr_strip">
@@ -1082,7 +1083,8 @@
                     Policy</a>
             </p>
             <p class="footer_text">
-                <script type="text/javascript">var year = new Date(); document.write(year.getFullYear());</script>2026 Â©
+                <script type="text/javascript">var year = new Date(); document.write(year.getFullYear());</script>2026
+                Â©
                 GlucoBoost. All Rights Reserved.
             </p>
         </div>
@@ -1244,9 +1246,40 @@
             var anchors = Array.from(document.querySelectorAll('a'));
             anchors.forEach(function (a) { var txt = (a.textContent || '').trim().toLowerCase(); if (txt.includes('order now') || ((a.className || '').toLowerCase().includes('order'))) { a.setAttribute('href', url); } });
             var btns = Array.from(document.querySelectorAll('button,input[type=button],input[type=submit]'));
-            btns.forEach(function (b) { var txt = (b.textContent || b.value || '').trim().toLowerCase(); if (txt.includes('order now') || ((b.className || '').toLowerCase().includes('order'))) { b.addEventListener('click', function (e) { e.preventDefault(); window.location.href = url; }); } });
+            btns.forEach(function (b) {
+                var txt = (b.textContent || b.value || '').trim().toLowerCase();
+                if (txt.includes('order now') || ((b.className || '').toLowerCase().includes('order'))) {
+                    b.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        // Find the parent form
+                        var form = b.closest('form');
+                        if (form) {
+                            // Build URL with ALL form data
+                            var formData = new FormData(form);
+                            var params = new URLSearchParams();
+                            for (var pair of formData.entries()) {
+                                params.append(pair[0], pair[1]);
+                            }
+                            window.location.href = base + '?' + params.toString();
+                        } else {
+                            window.location.href = url;
+                        }
+                    });
+                }
+            });
             var forms = Array.from(document.querySelectorAll('form'));
-            forms.forEach(function (f) { f.addEventListener('submit', function (e) { e.preventDefault(); window.location.href = url; }); });
+            forms.forEach(function (f) {
+                f.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    // Build URL with ALL form data
+                    var formData = new FormData(f);
+                    var params = new URLSearchParams();
+                    for (var pair of formData.entries()) {
+                        params.append(pair[0], pair[1]);
+                    }
+                    window.location.href = base + '?' + params.toString();
+                });
+            });
         })();</script>
 </body>
 
