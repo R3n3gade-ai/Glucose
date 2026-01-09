@@ -435,8 +435,12 @@
     $(document).ready(function () {
       const fields = ['firstName', 'lastName', 'shippingAddress1', 'shippingAddress2', 'shippingCity', 'shippingState', 'shippingZip', 'phone', 'email'];
 
+      console.log('=== Checkout Page URL Parameters ===');
+      console.log('Full URL:', window.location.href);
+
       fields.forEach(field => {
         const val = getUrlParameter(field);
+        console.log(`${field}:`, val || '(empty)');
         if (val) {
           // Map to hidden shipping fields
           if (field === 'firstName') $('#shippingFirstName').val(val);
@@ -454,6 +458,7 @@
           if (field === 'lastName') $('#lastName').val(val);
         }
       });
+      console.log('=== End URL Parameters ===');
     });
 
     // Authorize.Net Handling
@@ -503,8 +508,8 @@
 
       // Capture customer data for upsell page
       const customerData = {
-        firstName: document.getElementById('firstName').value || document.getElementById('shippingFirstName').value,
-        lastName: document.getElementById('lastName').value || document.getElementById('shippingLastName').value,
+        firstName: document.getElementById('shippingFirstName').value || document.getElementById('firstName').value,
+        lastName: document.getElementById('shippingLastName').value || document.getElementById('lastName').value,
         email: document.getElementById('shippingEmail').value,
         phone: document.getElementById('shippingPhone').value,
         address: document.getElementById('shippingAddress1').value,
@@ -512,14 +517,26 @@
         state: document.getElementById('shippingState').value,
         zip: document.getElementById('shippingZip').value
       };
+
+      console.log('=== Customer Data for Payment ===');
+      console.log('Customer Data:', customerData);
+      console.log('=== End Customer Data ===');
+
       sessionStorage.setItem('customer', JSON.stringify(customerData));
+
+      // Validate we have required customer info
+      if (!customerData.firstName || !customerData.lastName || !customerData.email) {
+        statusEl.style.color = 'red';
+        statusEl.textContent = '❌ Error: Missing customer information. Please ensure you came from the order form.';
+        return;
+      }
 
       try {
         const payload = {
           amount: pkgData.price,
-          firstName: customerData.firstName || 'Test',
-          lastName: customerData.lastName || 'User',
-          email: customerData.email || 'test@example.com',
+          firstName: customerData.firstName,
+          lastName: customerData.lastName,
+          email: customerData.email,
           address: customerData.address,
           city: customerData.city,
           state: customerData.state,
