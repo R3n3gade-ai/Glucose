@@ -125,6 +125,22 @@
                 transform: rotate(360deg)
             }
         }
+
+        /* Hide 6" measurement in product image */
+        .s2_lft_imgbox {
+            position: relative;
+        }
+
+        .s2_lft_imgbox::after {
+            content: '';
+            position: absolute;
+            background: white;
+            width: 60px;
+            height: 60px;
+            top: 52%;
+            right: 18%;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -822,306 +838,147 @@
         </div>
     </div>
 
-    <div class="section9">
+    <div class="footer">
         <div class="container">
-            <p class="common_heading">Frequently Asked Questions</p>
-
-            <div class="faq-container" style="overflow:hidden;">
-                <div class="up-slide-dwn">
-                    <div class="faq-innr">
-                        <div class="accordion acdn-heading" id="hd-one">How soon will I start seeing
-                            results?</div>
-                        <div class="acdn-content">
-                            <p class="acdn-para">Individual results vary. Some users may notice changes over time when
-                                combined with healthy habits. Consult with a healthcare professional for personalized
-                                guidance.</p>
-                        </div>
-                    </div>
-
-                    <div class="up-slide-dwn">
-                        <div class="faq-innr">
-                            <div class="accordion acdn-heading accordion-close">Is this product safe to use long-term?
-                            </div>
-                            <div class="acdn-content" style="display: none;">
-                                <p class="acdn-para">Yes, our supplement is made with all-natural ingredients and is
-                                    designed for safe, long-term use. It supports healthy weight management without the
-                                    risks associated with synthetic injections.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="up-slide-dwn">
-                        <div class="faq-innr">
-                            <div class="accordion acdn-heading accordion-close">How does this supplement mimic GLP-1
-                                injections?</div>
-                            <div class="acdn-content" style="display: none;">
-                                <p class="acdn-para">Our formula contains natural ingredients that stimulate the body's
-                                    GLP-1 production, aiding in appetite control, metabolism boost, and blood sugar
-                                    regulation, similar to how synthetic GLP-1 injections work.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="up-slide-dwn">
-                        <div class="faq-innr">
-                            <div class="accordion acdn-heading accordion-close">Do I need a prescription to use this
-                                supplement?</div>
-                            <div class="acdn-content" style="display: none;">
-                                <p class="acdn-para">No prescription is needed! Unlike traditional GLP-1 injections, our
-                                    supplement is available over the counter and is easy to incorporate into your daily
-                                    routine.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="up-slide-dwn">
-                        <div class="faq-innr">
-                            <div class="accordion acdn-heading accordion-close">Are there any side effects?</div>
-                            <div class="acdn-content" style="display: none;">
-                                <p class="acdn-para">Our product is made with natural ingredients and is generally
-                                    well-tolerated. Most users do not experience side effects. However, as with any
-                                    supplement, it's best to consult with a healthcare professional if you have any
-                                    concerns.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="up-slide-dwn">
-                        <div class="faq-innr">
-                            <div class="accordion acdn-heading accordion-close">What if I'm not satisfied with the
-                                results?</div>
-                            <div class="acdn-content" style="display: none;">
-                                <p class="acdn-para">We offer a 60-day money-back guarantee. If you're not completely
-                                    satisfied with your progress, simply contact our support team within 60 days for a
-                                    full
-                                    refund"”no questions asked.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="btn_box">
-                    <p class="discont_text">As low as <span>$64.99</span> per month.</p>
-                    <a href="javascript:bookmarkscroll.scrollTo('frm-top')" class="packageBtn">Order Now &amp; Save 40%
-                        <img src="images/btn-arw.png" class="btn_arw" alt="" width="25" height="26"></a>
-                    <p class="mnybk_text"><img src="images/dollar_icon.png" alt="" width="15" height="15">60 Days Money
-                        Back
-                        Guarantee</p>
-                </div>
-
-            </div>
+            <img src="images/logo.png" class="foot-logo" alt="" width="368" height="60">
+            <p class="footer_text">
+                <a href="javascript:void(0);" onclick="window.open('privacy.html', '_blank');">Privacy
+                    policy</a> |
+                <a href="javascript:void(0);" onclick="window.open('terms.html', '_blank');">Terms &amp;
+                    Conditions</a> |
+                <a href="javascript:void(0);" onclick="window.open('wireless.html', '_blank');">Wireless
+                    Policy</a>
+            </p>
+            <p class="footer_text">
+                <script type="text/javascript">var year = new Date(); document.write(year.getFullYear());</script>
+                2026
+                Â©
+                GlucoBoost. All Rights Reserved.
+            </p>
         </div>
+    </div>
 
-        <div class="footer">
-            <div class="container">
-                <img src="images/logo.png" class="foot-logo" alt="" width="368" height="60">
-                <p class="footer_text">
-                    <a href="javascript:void(0);" onclick="window.open('privacy.html', '_blank');">Privacy
-                        policy</a> |
-                    <a href="javascript:void(0);" onclick="window.open('terms.html', '_blank');">Terms &amp;
-                        Conditions</a> |
-                    <a href="javascript:void(0);" onclick="window.open('wireless.html', '_blank');">Wireless
-                        Policy</a>
-                </p>
-                <p class="footer_text">
-                    <script type="text/javascript">var year = new Date(); document.write(year.getFullYear());</script>
-                    2026
-                    Â©
-                    GlucoBoost. All Rights Reserved.
-                </p>
-            </div>
+    <div class="popup-loading-wrapper" style="display:none;">
+        <div class="popup">
+            <figure class="product-image"></figure>
+            <p>Reserving Your Bottle Of</p>
+            <h2>GlucoBoost GLP-1 Booster</h2>
+            <img src="assets/images/icon-loading.png" alt="" class="loading-image">
         </div>
+    </div>
 
-        <div class="popup-loading-wrapper" style="display:none;">
-            <div class="popup">
-                <figure class="product-image"></figure>
-                <p>Reserving Your Bottle Of</p>
-                <h2>GlucoBoost GLP-1 Booster</h2>
-                <img src="assets/images/icon-loading.png" alt="" class="loading-image">
-            </div>
-        </div>
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/bookmarkscroll.js"></script><br>
+    <script type="text/javascript" src="assets/js/scripts.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="assets/js/custom.js"></script>
 
-        <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript" src="js/bookmarkscroll.js"></script><br>
-        <script type="text/javascript" src="assets/js/scripts.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
-        <script type="text/javascript" src="assets/js/custom.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function (e)         $(".accordion").click(function ()                    var quest            ;
+                    var answerDiv =                -content');
+                               cdn-content').index(answerDiv);
 
-        <script type="text/javascript">
-            $(document).ready(function (e) {
-
-                //Accordion JS 
-                $(".accordion").click(function () {
-
-                    var questionDiv = $(this);
-                    var answerDiv = $(this).next('.acdn-content');
-                    var idx = $('.acdn-content').index(answerDiv);
-
-                    $('.acdn-content').each(function (index, ansDiv) {
-                        if (index != idx && $(ansDiv).is(':visible')) {
-                            $(ansDiv).slideUp(500, function () {
-                                $(ansDiv).prev('.accordion').removeClass('accordion-open');
-                            });
+                              nt').each(function (index, ansDiv) {
+                           ex != idx && $(ansDiv).is(':visible')) {
+                              iv).slideUp(500, function () {
+                                         v('.accordion').removeClass('accordio                                  });
                         }
                     });
-
-                    if (answerDiv.is(':visible')) {
-                        answerDiv.stop().slideUp(500, function () {
-                            questionDiv.removeClass('accordion-open');
-                        });
-                    } else {
-                        questionDiv.addClass('accordion-open');
-                        answerDiv.stop().slideDown(500);
+                        werD                                      nswer                00, function () {
+                                  v.removeClass('accordion-open');
+                                            } else {
+                        q                    ordi                                             lideDown(500);
                     }
-                });
-
-
-
-                calculator(334, 15);
+                                   calculator(334, 15);
 
             });
 
-        </script>
+    </script>
 
-        <script type="text/javascript">
-            function calculator(defWeight, percentage) {
-                const range = document.querySelector('.circle-range');
-                const slider = range.querySelector('.slider-range');
-                const img = range.querySelector('img');
-                const result = range.querySelector('.range-result');
-                const weight = document.querySelector('.revolutionary .weight .number');
-                const maxOutputDegrees = 505;
+    <script type="text/javascript">
+            function calculator(defWer=        erySelector('.circle-range');
+                           range.querySelector('.slider-range');
+                c            .querySelector('img');
+                const result =            ctor('.range-result');
+                c            cument.querySelector('.revolutionary .weight .number'               const maxOutputDegrees = 505;
 
                 if (!defWeight) {
-                    const defWeight = 205;
-                }
-                if (!percentage) {
-                    const percentage = 20;
-                }
+                 onst defWeight = 205;
+                              if (!perc                          const percent                                     let isDr                             img.ondrag             ()                   return false;
+                                range.addEventLi                () => { isDrag                            e.addEventListener('mouseup', () => {
+                    isDraggi                        });
 
-                let isDragging = false;
+                function                               btnSub            move(                             docume                er('touchend', onMouseUp);
+                             veEventListener('touchmove', onMouseMove);
+                               document.addEventListener('mousemove', e => {
+                 .pr                                e.stopPropagation();
 
-                img.ondragstart = function () {
-                    return false;
-                };
-
-                range.addEventListener('mousedown', () => { isDragging = true });
-                range.addEventListener('mouseup', () => {
-                    isDragging = false;
-                });
-
-                function onMouseUp() {
-                    btnSubmit.classList.remove('disabled');
-                    document.removeEventListener('touchend', onMouseUp);
-                    document.removeEventListener('touchmove', onMouseMove);
-                }
-
-                document.addEventListener('mousemove', e => {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    if (e.target.closest('.circle-range') != null) {
-                        if (isDragging) {
+                    e.target.closest('.c                l) {
+                                 g) {
                             onMouseMove(e);
-                        }
-                    } else {
-                        isDragging = false;
                     }
-                });
+                                                 isDragg                                           });
+                    ddEventListener('cli                              useMo                   });
 
-                range.addEventListener('click', (e) => {
-                    onMouseMove(e);
-                });
+                function onMo                             let            tBoun            ;
+                    let                 + rect.width / 2;
+                    let                  rect.height;
 
-                function onMouseMove(e) {
-                    let rect = range.getBoundingClientRect();
-                    let centerX = rect.left + rect.width / 2;
-                    let centerY = rect.top + rect.height;
+                    let cli                undefined) ? e.clientX : e.touches[0].c                        let clickY = (e.clientY != undefined) ? e.clientY : e.touches[0].c                         let radians = Math.atan2(clickY - centerY, clickX - centerX);
+                    degrees = radians * (180 / Math.PI);
 
-                    let clickX = (e.clientX != undefined) ? e.clientX : e.touches[0].clientX;
-                    let clickY = (e.clientY != undefined) ? e.clientY : e.touches[0].clientY;
+                    degr                
 
-                    let radians = Math.atan2(clickY - centerY, clickX - centerX);
-                    let degrees = radians * (180 / Math.PI);
+                    if (degrees == 0 ||                                      retur                   }
 
-                    degrees = 180 + degrees;
-
-                    if (degrees == 0 || degrees > 180) {
-                        return;
-                    }
-
-                    let scaledDegrees = degrees * (maxOutputDegrees / 180);
-                    let percent = Math.round((Math.round(degrees) / 180) * 100);
-                    let min = 145;
+                    let scaledD                    utputDeg                                   t = Math.round((Math.round(degrees) / 180) * 100);
+                     in = 145;
                     let max = 505;
-                    let convertedValue = ((percent - 0) * (max - min) / (100 - 0)) + min;
-                    slider.style.transform = `rotate(${degrees}deg)`;
-                    result.textContent = Math.round(convertedValue);
-                    weight.textContent = Math.round(convertedValue / 100 * percentage);
-                }
-
+                                ue = ((percent                  (100 - 0)) + m                    slider.style.transform = `rotate(${degrees}deg)`;
+                                nt = Math.round(convertedValue);
+                                 t = Math.round(convertedValue / 100 * percentage)                
                 function defaultCalc() {
-                    result.innerHTML = defWeight;
-                    slider.style.transform = `rotate(62deg)`;
+                    result            Wei                     slider.style.tra                eg)`;
 
-                    result.textContent = Math.round(defWeight);
-                    weight.textContent = Math.round(defWeight * (percentage / 100).toFixed(2));
-                }
+                    res                th.round(defWeight);
+                    we                ath.round(defWeight * (percentage / 100).toF                      }
 
                 defaultCalc();
             }
-        </script>
+    </script>
 
-        <script defer=""
-            src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
-            integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-            data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;a5655e29284943808d70dada2aa3c4c0&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}"
-            crossorigin="anonymous"></script>
+    <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;a5655e29284943808d70dada2aa3c4c0&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}"
+        crossorigin="anonymous"></script>
 
-        <script>(function () {
-                // Rewrite "Order Now" links/buttons to checkout.html
-                var base = 'checkout.html';
-                var sp = new URLSearchParams(window.location.search);
-                var qp = new URLSearchParams();
-                ['AFFID', 'prospectId', 'c1', 'c2', 'c3'].forEach(function (k) { var v = sp.get(k); if (v) { qp.set(k, v); } });
+    <script>(function ()               // Rewrite "O        nks to che                   var             .html';
+                var sp = new URLSearchParams(w            earch);
+                var             chParams();
+                ['AFFID', 'prospectId', 'c            forEach(function (k) { var v = s             { qp.set(k, v); } });
                 var url = base + (qp.toString() ? ('?' + qp.toString()) : '');
-                var anchors = Array.from(document.querySelectorAll('a'));
-                anchors.forEach(function (a) { var txt = (a.textContent || '').trim().toLowerCase(); if (txt.includes('order now') || ((a.className || '').toLowerCase().includes('order'))) { a.setAttribute('href', url); } });
-                var btns = Array.from(document.querySelectorAll('button,input[type=button],input[type=submit]'));
+                        = Array.from(document.querySelectorAll('a'));
+                            function (a) { var txt = (a.textContent || '').trim().toLo            xt.includes('order now') || ((a.className || '').toLowerCase().includes('order'))) { a.setAttribute('href', url); } });
+                var btns = Array.from(document.querySelectorAll('button,input[type=button]            it]'));
                 btns.forEach(function (b) {
-                    var txt = (b.textContent || b.value || '').trim().toLowerCase();
-                    if (txt.includes('order now') || ((b.className || '').toLowerCase().includes('order'))) {
-                        b.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            // Find the parent form
-                            var form = b.closest('form');
-                            if (form) {
-                                // Build URL with ALL form data
-                                var formData = new FormData(form);
-                                var params = new URLSearchParams();
-                                for (var pair of formData.entries()) {
-                                    params.append(pair[0], pair[1]);
-                                }
-                                window.location.href = base + '?' + params.toString();
-                            } else {
-                                window.location.href = url;
-                            }
-                        });
-                    }
-                });
-                var forms = Array.from(document.querySelectorAll('form'));
-                forms.forEach(function (f) {
-                    f.addEventListener('submit', function (e) {
-                        e.preventDefault();
-                        // Build URL with ALL form data
-                        var formData = new FormData(f);
-                        var params = new URLSearchParams();
-                        for (var pair of formData.entries()) {
-                            params.append(pair[0], pair[1]);
+                    var txt = (b.textContent |            .trim().toLowerCase();
+                     xt.includes('order now') || ((b.className || '').toLowerCase().in                                        b.addEventListener('click', function (e) {
+                                           
+                            // Find the pa                                  var form =                                            if (                                    // Build URL with                                                                 a(form);
+                                                   rchParams();
+                                                  ata.entries()) {
+                                               air[0], pair[1]);
+                                                              window.location.href = b                                                          {
+                                window.location.href                                }
+                                            }
+                                  r                     ent.                rm                            unction (f) {
+                    f.addEventListener('submi             {
+                        e.                                      // Build URL with ALL                               var formDa                                          var params                    ;
+                        for (v                    ies()) {
+                                               pair[1]);
                         }
-                        window.location.href = base + '?' + params.toString();
-                    });
-                });
+                           location.href = base + '?' + para                                               });
             })();</script>
 </body>
 
