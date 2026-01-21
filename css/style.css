@@ -2151,6 +2151,11 @@ ul.comp_col_list li {
 		margin-top: 10px;
 	}
 
+	/* Hide the No Injections/No Prescription banner on mobile */
+	.bnr_strip {
+		display: none;
+	}
+
 	.bnr_strip {
 		max-width: 100%;
 		padding: 12px 10px;
