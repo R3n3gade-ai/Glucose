@@ -2142,7 +2142,7 @@ ul.comp_col_list li {
 	}
 
 	.logo {
-		width: 150px;
+		width: 220px;
 	}
 
 	.bnr_heading {
@@ -2373,6 +2373,19 @@ ul.comp_col_list li {
 	.s5_list li {
 		width: 100%;
 		margin-bottom: 20px;
+		padding: 0 20px;
+	}
+
+	.s5_list li h3 {
+		word-wrap: break-word;
+		hyphens: auto;
+		text-align: center;
+	}
+
+	.s5_list li p {
+		word-wrap: break-word;
+		hyphens: auto;
+		text-align: center;
 	}
 
 	/* Section 8 - Testimonials */
@@ -2436,7 +2449,7 @@ ul.comp_col_list li {
 	}
 
 	.logo {
-		width: 120px;
+		width: 180px;
 	}
 
 	.bnr_review_text {
@@ -2626,14 +2639,22 @@ ul.comp_col_list li {
 	}
 
 	/* Section 5 */
+	.s5_list li {
+		padding: 0 15px;
+	}
+
 	.s5_list li h3 {
 		font-size: 20px;
 		line-height: 26px;
+		word-wrap: break-word;
+		hyphens: auto;
 	}
 
 	.s5_list li p {
 		font-size: 14px;
 		line-height: 20px;
+		word-wrap: break-word;
+		hyphens: auto;
 	}
 
 	/* Section 8 */
