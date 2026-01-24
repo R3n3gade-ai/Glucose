@@ -599,6 +599,14 @@ p {
 	border-radius: 0 0 10px 10px
 }
 
+/* New package image styles */
+.package-img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
 .package__save {
 	background: url(../images/package-save.png) no-repeat;
 	position: absolute;
@@ -1509,18 +1517,26 @@ ul.pop-list li.active img {
 		float: none;
 		padding: 10px 5%;
 		text-align: center;
+		min-height: 180px;
+		position: relative;
+	}
+
+	/* Simplified package image display for mobile */
+	.package-img {
+		max-width: 90%;
+		height: auto;
+		margin: 0 auto;
+		display: block;
 	}
 
 	.package-images__item {
-		width: 45%;
-		height: 140px;
-		display: inline-block;
-		float: none;
+		display: none;
+		/* Hide individual bottle positioning on mobile */
 	}
 
 	.chk-plus {
-		left: 48%;
-		top: 60px;
+		display: none;
+		/* Hide plus icon on mobile since it's in the composite image */
 	}
 
 	.package__save {
@@ -1727,29 +1743,22 @@ ul.pop-list li.active img {
 		line-height: 28px;
 	}
 
+	/* Package images for smaller screens */
+	.package-img {
+		max-width: 95%;
+	}
+
+	.package-images {
+		min-height: 150px;
+		padding: 5px 2%;
+	}
+
 	.package-images__item {
-		width: 48%;
-		height: 120px;
-	}
-
-	.package-images__item .prod-btl1,
-	.prod-btl2,
-	.prod-btl3,
-	.prod-btl4,
-	.prod-btl5 {
-		width: 60px;
-		left: 35px;
-	}
-
-	.prod-btl2,
-	.prod-btl3 {
-		width: 55px;
+		display: none;
 	}
 
 	.chk-plus {
-		width: 28px;
-		left: 47%;
-		top: 50px;
+		display: none;
 	}
 
 	.package__save {
