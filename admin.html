@@ -99,6 +99,12 @@
 <body>
 
     <h1>Admin Dashboard</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <div
+            style="display: inline-block; background: #007bff; color: white; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold;">
+            <span style="opacity: 0.8;">Total Visitors:</span> <span id="visitor-count">0</span>
+        </div>
+    </div>
 
     <div class="tabs">
         <div class="tab active" onclick="switchTab('leads')">Leads (Abandoned)</div>
@@ -128,6 +134,9 @@
             try {
                 const res = await fetch('/api/admin-data');
                 const data = await res.json();
+
+                // Update visitor count
+                document.getElementById('visitor-count').textContent = data.visitorCount || 0;
 
                 renderTable('leads-list', data.leads || [], ['timestamp', 'firstName', 'lastName', 'email', 'phone']);
                 renderTable('buyers-list', data.orders || [], ['timestamp', 'authCode', 'amount', 'firstName', 'lastName', 'email']);

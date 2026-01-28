@@ -31,6 +31,7 @@ if (!fs.existsSync(DATA_DIR)) {
 
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+const VISITORS_FILE = path.join(DATA_DIR, 'visitors.json');
 
 // Helper to append data to JSON file
 function appendToDataFile(filePath, newData) {
@@ -63,13 +64,25 @@ app.get('/api/config.js', (req, res) => {
 app.get('/api/admin-data', (req, res) => {
     let leads = [];
     let orders = [];
+    let visitorCount = 0;
     try {
         if (fs.existsSync(LEADS_FILE)) leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
         if (fs.existsSync(ORDERS_FILE)) orders = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+        if (fs.existsSync(VISITORS_FILE)) {
+            const visitors = JSON.parse(fs.readFileSync(VISITORS_FILE, 'utf8'));
+            visitorCount = visitors.length;
+        }
     } catch (e) {
         console.error('Error reading admin data:', e);
     }
-    res.json({ leads, orders });
+    res.json({ leads, orders, visitorCount });
+});
+
+// Visitor tracking endpoint
+app.post('/api/visitor', (req, res) => {
+    const { page } = req.body || {};
+    appendToDataFile(VISITORS_FILE, { page: page || 'unknown' });
+    res.status(200).json({ status: 'tracked' });
 });
 
 // Capture Lead endpoint

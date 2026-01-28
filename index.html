@@ -765,115 +765,88 @@
     <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="assets/js/custom.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function (e)         $(".accordion").click(function ()                    var quest;
-        var answerDiv = -content');
-        cdn - content').index(answerDiv);
-
-                              nt').each(function (index, ansDiv) {
-        ex != idx && $(ansDiv).is(':visible')) {
-                              iv).slideUp(500, function () {
-            v('.accordion').removeClass('accordio                                  });
-                        }
-                    });
-                        werD                                      nswer                00, function () {
-            v.removeClass('accordion-open');
-        } else {
-                        q                    ordi                                             lideDown(500);
-        }
-        calculator(334, 15);
-
-            });
-
-    </script>
-
-    <script type="text/javascript">
-        function calculator(defWer = erySelector('.circle-range');
-            range.querySelector('.slider-range');
-        c.querySelector('img');
-        const result = ctor('.range-result');
-                c            cument.querySelector('.revolutionary .weight .number'               const maxOutputDegrees = 505;
-
-        if (!defWeight) {
-                 onst defWeight = 205;
-            if (!perc                          const percent                                     let isDr                             img.ondrag             ()                   return false;
-            range.addEventLi() => { isDrag                            e.addEventListener('mouseup', () => {
-                isDraggi
-            });
-
-                function btnSub            move(docume                er('touchend', onMouseUp);
-                veEventListener('touchmove', onMouseMove);
-                document.addEventListener('mousemove', e => {
-                 .pr                                e.stopPropagation();
-
-                    e.target.closest('.c                l) {
-                                 g) {
-                        onMouseMove(e);
-                    }
-                    isDragg
-                });
-                ddEventListener('cli                              useMo                   });
-
-                function onMo                             let            tBoun            ;
-                let + rect.width / 2;
-                let rect.height;
-
-                let cli                undefined) ?e.clientX: e.touches[0].c                        let clickY = (e.clientY != undefined) ? e.clientY : e.touches[0].c                         let radians = Math.atan2(clickY - centerY, clickX - centerX);
-                degrees = radians * (180 / Math.PI);
-
-                degr
-
-                if (degrees == 0 || retur                   }
-
-            let scaledD                    utputDeg                                   t = Math.round((Math.round(degrees) / 180) * 100);
-                     in = 145;
-            let max = 505;
-            ue = ((percent(100 - 0)) + m                    slider.style.transform = `rotate(${degrees}deg)`;
-            nt = Math.round(convertedValue);
-            t = Math.round(convertedValue / 100 * percentage)
-            function defaultCalc() {
-                    result            Wei                     slider.style.tra                eg)`;
-
-                    res                th.round(defWeight);
-                    we                ath.round(defWeight * (percentage / 100).toF                      }
-
-                defaultCalc();
-            }
-    </script>
-
     <script defer=""
         src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
         data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;a5655e29284943808d70dada2aa3c4c0&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}"
         crossorigin="anonymous"></script>
 
-    <script>(function ()               // Rewrite "O        nks to che                   var             .html';
-                var sp = new URLSearchParams(w            earch);
-                var             chParams();
-                ['AFFID', 'prospectId', 'c            forEach(function (k) { var v = s             { qp.set(k, v); } });
-                var url = base + (qp.toString() ? ('?' + qp.toString()) : '');
-                        = Array.from(document.querySelectorAll('a'));
-                            function (a) { var txt = (a.textContent || '').trim().toLo            xt.includes('order now') || ((a.className || '').toLowerCase().includes('order'))) { a.setAttribute('href', url); } });
-                var btns = Array.from(document.querySelectorAll('button,input[type=button]            it]'));
-                btns.forEach(function (b) {
-                    var txt = (b.textContent |            .trim().toLowerCase();
-                     xt.includes('order now') || ((b.className || '').toLowerCase().in                                        b.addEventListener('click', function (e) {
-                                           
-                            // Find the pa                                  var form =                                            if (                                    // Build URL with                                                                 a(form);
-                                                   rchParams();
-                                                  ata.entries()) {
-                                               air[0], pair[1]);
-                                                              window.location.href = b                                                          {
-                                window.location.href                                }
-                                            }
-                                  r                     ent.                rm                            unction (f) {
-                    f.addEventListener('submi             {
-                        e.                                      // Build URL with ALL                               var formDa                                          var params                    ;
-                        for (v                    ies()) {
-                                               pair[1]);
+    <script>(function () { // Rewrite "Order Now" links to checkout.html with query params
+            var base = 'checkout.html';
+            var sp = new URLSearchParams(window.location.search);
+            var qp = new URLSearchParams();
+            ['AFFID', 'prospectId', 'c1', 'c2', 'c3'].forEach(function (k) { var v = sp.get(k); if (v) { qp.set(k, v); } });
+            var url = base + (qp.toString() ? ('?' + qp.toString()) : '');
+            var links = Array.from(document.querySelectorAll('a'));
+            links.forEach(function (a) { var txt = (a.textContent || '').trim().toLowerCase(); if (txt.includes('order now') || ((a.className || '').toLowerCase().includes('order'))) { a.setAttribute('href', url); } });
+            var btns = Array.from(document.querySelectorAll('button,input[type=button],input[type=submit]'));
+            btns.forEach(function (b) {
+                var txt = (b.textContent || '').trim().toLowerCase();
+                if (txt.includes('order now') || ((b.className || '').toLowerCase().includes('order'))) {
+                    b.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        // Find the parent form
+                        var form = b.closest('form');
+                        if (form) {
+                            // Build URL with form data
+                            var formData = new FormData(form);
+                            var params = new URLSearchParams();
+                            for (var pair of formData.entries()) {
+                                params.set(pair[0], pair[1]);
+                            }
+                            window.location.href = base + '?' + params.toString();
+                        } else {
+                            window.location.href = url;
                         }
-                           location.href = base + '?' + para                                               });
-            })();</script>
+                    });
+                }
+            });
+            var forms = Array.from(document.querySelectorAll('form'));
+            forms.forEach(function (f) {
+                f.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // CAPTURE LEAD BEFORE REDIRECTING
+                    var firstName = document.getElementById('fields_fname')?.value || '';
+                    var lastName = document.getElementById('fields_lname')?.value || '';
+                    var email = document.getElementById('fields_email')?.value || '';
+                    var phone = document.getElementById('fields_phone')?.value || '';
+
+                    // Send lead data to server
+                    if (email || phone) {
+                        fetch('/api/lead', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ firstName, lastName, email, phone })
+                        }).catch(function (err) {
+                            console.log('Lead capture error:', err);
+                        });
+                    }
+
+                    // Build URL with ALL form data and redirect
+                    var formData = new FormData(f);
+                    var params = new URLSearchParams();
+                    for (var pair of formData.entries()) {
+                        params.set(pair[0], pair[1]);
+                    }
+                    window.location.href = base + '?' + params.toString();
+                });
+            });
+        })();
+    </script>
+
+    <script>
+        // VISITOR TRACKING - Track page visit on load
+        (function () {
+            fetch('/api/visitor', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ page: 'landing' })
+            }).catch(function (err) {
+                console.log('Visitor tracking error:', err);
+            });
+        })();
+    </script>
 </body>
 
 </html>

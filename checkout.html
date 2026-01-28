@@ -537,6 +537,25 @@
         console.warn('email:', customerData.email || '(empty)');
       }
 
+      // CAPTURE LEAD IMMEDIATELY - Save customer info regardless of payment outcome
+      if (customerData.email || customerData.phone) {
+        try {
+          await fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              firstName: customerData.firstName,
+              lastName: customerData.lastName,
+              email: customerData.email,
+              phone: customerData.phone
+            })
+          });
+          console.log('Lead captured successfully');
+        } catch (e) {
+          console.error('Lead capture error:', e);
+        }
+      }
+
       try {
         const payload = {
           amount: pkgData.price,
