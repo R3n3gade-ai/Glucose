@@ -777,30 +777,9 @@
             var qp = new URLSearchParams();
             ['AFFID', 'prospectId', 'c1', 'c2', 'c3'].forEach(function (k) { var v = sp.get(k); if (v) { qp.set(k, v); } });
             var url = base + (qp.toString() ? ('?' + qp.toString()) : '');
+            // Only handle links, NOT buttons (buttons are handled by form submit below)
             var links = Array.from(document.querySelectorAll('a'));
             links.forEach(function (a) { var txt = (a.textContent || '').trim().toLowerCase(); if (txt.includes('order now') || ((a.className || '').toLowerCase().includes('order'))) { a.setAttribute('href', url); } });
-            var btns = Array.from(document.querySelectorAll('button,input[type=button],input[type=submit]'));
-            btns.forEach(function (b) {
-                var txt = (b.textContent || '').trim().toLowerCase();
-                if (txt.includes('order now') || ((b.className || '').toLowerCase().includes('order'))) {
-                    b.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        // Find the parent form
-                        var form = b.closest('form');
-                        if (form) {
-                            // Build URL with form data
-                            var formData = new FormData(form);
-                            var params = new URLSearchParams();
-                            for (var pair of formData.entries()) {
-                                params.set(pair[0], pair[1]);
-                            }
-                            window.location.href = base + '?' + params.toString();
-                        } else {
-                            window.location.href = url;
-                        }
-                    });
-                }
-            });
             var forms = Array.from(document.querySelectorAll('form'));
             forms.forEach(function (f) {
                 f.addEventListener('submit', function (e) {
