@@ -817,6 +817,8 @@
                     var email = emailEl ? emailEl.value : '';
                     var phone = phoneEl ? phoneEl.value : '';
 
+                    console.log('🔍 LEAD CAPTURE DEBUG:', { firstName, lastName, email, phone });
+
                     // Build URL with ALL form data
                     var formData = new FormData(f);
                     var params = new URLSearchParams();
@@ -827,19 +829,24 @@
 
                     // Send lead data to server and WAIT for response before redirecting
                     if (email || phone) {
+                        console.log('📤 Sending lead to server...');
                         fetch('/api/lead', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, phone: phone })
                         }).then(function (response) {
-                            console.log('Lead captured successfully');
+                            console.log('✅ Lead API response:', response.status);
+                            return response.json();
+                        }).then(function (data) {
+                            console.log('✅ Lead saved:', data);
                             window.location.href = redirectUrl;
                         }).catch(function (err) {
-                            console.log('Lead capture error:', err);
+                            console.error('❌ Lead capture error:', err);
                             // Still redirect even if lead capture fails
                             window.location.href = redirectUrl;
                         });
                     } else {
+                        console.log('⚠️ No email or phone - skipping lead capture');
                         // No email or phone, just redirect
                         window.location.href = redirectUrl;
                     }
