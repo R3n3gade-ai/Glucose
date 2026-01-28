@@ -807,29 +807,42 @@
                     e.preventDefault();
 
                     // CAPTURE LEAD BEFORE REDIRECTING
-                    var firstName = document.getElementById('fields_fname')?.value || '';
-                    var lastName = document.getElementById('fields_lname')?.value || '';
-                    var email = document.getElementById('fields_email')?.value || '';
-                    var phone = document.getElementById('fields_phone')?.value || '';
+                    var firstNameEl = document.getElementById('fields_fname');
+                    var lastNameEl = document.getElementById('fields_lname');
+                    var emailEl = document.getElementById('fields_email');
+                    var phoneEl = document.getElementById('fields_phone');
 
-                    // Send lead data to server
-                    if (email || phone) {
-                        fetch('/api/lead', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ firstName, lastName, email, phone })
-                        }).catch(function (err) {
-                            console.log('Lead capture error:', err);
-                        });
-                    }
+                    var firstName = firstNameEl ? firstNameEl.value : '';
+                    var lastName = lastNameEl ? lastNameEl.value : '';
+                    var email = emailEl ? emailEl.value : '';
+                    var phone = phoneEl ? phoneEl.value : '';
 
-                    // Build URL with ALL form data and redirect
+                    // Build URL with ALL form data
                     var formData = new FormData(f);
                     var params = new URLSearchParams();
                     for (var pair of formData.entries()) {
                         params.set(pair[0], pair[1]);
                     }
-                    window.location.href = base + '?' + params.toString();
+                    var redirectUrl = base + '?' + params.toString();
+
+                    // Send lead data to server and WAIT for response before redirecting
+                    if (email || phone) {
+                        fetch('/api/lead', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, phone: phone })
+                        }).then(function (response) {
+                            console.log('Lead captured successfully');
+                            window.location.href = redirectUrl;
+                        }).catch(function (err) {
+                            console.log('Lead capture error:', err);
+                            // Still redirect even if lead capture fails
+                            window.location.href = redirectUrl;
+                        });
+                    } else {
+                        // No email or phone, just redirect
+                        window.location.href = redirectUrl;
+                    }
                 });
             });
         })();
